@@ -7,22 +7,39 @@ const loadLessons=()=>{
 const loadLevelWord = (id) =>{
     const url = `https://openapi.programming-hero.com/api/level/${id}` ;
     fetch(url)
-    .then(res => res.json())
-    .then(data => console.log(data.data));
+    .then((res) => res.json())
+    .then((data) => displayLevelWord(data.data));
 };
 
 
-// issue here!
 const displayLevelWord = (words) =>{
     const wordContainer = document.getElementById("word-container");
     wordContainer.innerHTML = "";
+
+//     {
+//     "id": 83,
+//     "level": 1,
+//     "word": "Door",
+//     "meaning": "দরজা",
+//     "pronunciation": "ডোর"
+// }
 
 
     words.forEach((word) => {
         console.log(word);
         const card = document.createElement("div");
         card.innerHTML = `
-        <p>Cat</p>
+        <div class="bg-white rounded-xl shadow-sm text-center py-10 px-5 space-y-4">
+            <h2 class="font-bold text-2xl">${word.word}</h2>
+            <p class="font-semibold">Meaning /Pronunciation</p>
+            <div class="text-2xl font-medium font-bangla">"${word.meaning} / ${word.pronunciation}"</div>
+            <div class="flex justify-between items-center">
+                <button class="btn bg-[#1A91FF]/10 hover:bg-[#1A91FF]/80"><i
+                        class="fa-solid fa-circle-info"></i></button>
+                <button class="btn bg-[#1A91FF]/10 hover:bg-[#1A91FF]/80"><i
+                        class="fa-solid fa-volume-high"></i></button>
+            </div>
+        </div>
         `;
         wordContainer.append(card);
     });
